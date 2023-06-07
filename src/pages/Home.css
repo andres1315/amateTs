@@ -4,27 +4,31 @@ body{
   font-family: 'Amaranth', sans-serif;
 }
 
+/* media query only apply to device pc*/
 
-.galleryImg{
-  display: flex;
-  width: 600px;
-  height: 430px;
-  object-fit: cover;
-  border-radius: 10px;
-  transition: 0.3s ease-in-out;
-}
+@media only screen and (min-width: 768px) {
 
-.galleryImg img {
-  width: 0px;
-  flex-grow: 1;
-  object-fit: cover;
-  opacity: .8;
-  transition: .5s ease-in-out;
-}
+  .galleryImg{
+    display: flex;
+    width: 600px;
+    height: 430px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: 0.3s ease-in-out;
+  }
 
-.galleryImg img:hover{
-  cursor: pointer;
-  width: 300px;
-  opacity: 1;
-  filter: contrast(120%);
+  .galleryImg div {
+    width: 0px;
+    flex-grow: 1;
+    object-fit: cover;
+    transition: .5s ease-in-out;
+  }
+ 
+
+  .galleryImg div:hover{
+    cursor: pointer;
+    width: 100px;
+    opacity: 1;
+    filter: contrast(100%);
+  }
 }
