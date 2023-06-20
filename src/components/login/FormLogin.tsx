@@ -14,7 +14,7 @@ export const FormLogin: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
   const { setUserData } = useContext(UserContext)
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    axios.post(`${import.meta.env.VITE_URL_API}/auth/login`, data)
+    axios.post(`${import.meta.env.VITE_URL_API}auth/login`, data)
       .then((response) => {
         const { data, status } = response
         if (status === 200) {
