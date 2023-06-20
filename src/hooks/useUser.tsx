@@ -19,6 +19,7 @@ export const useUser = (): any => {
     localStorage.removeItem('token')
     setUser(null)
     setToken(null)
+    console.log('se ejeceutdo desde edelete user')
   }
 
   return { user, setUserData, deleteUserData, token, setToken }
