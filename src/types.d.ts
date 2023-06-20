@@ -12,3 +12,10 @@ export interface PropsUserContext {
   token: User['token'] | null
   setToken: (token: User['token']) => undefined
 }
+
+export interface PropsAxios {
+  method: 'get' | 'post' | 'put' | 'delete'
+  endpoint: string
+  data?: any
+  headers?: any
+}
