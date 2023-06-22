@@ -19,3 +19,9 @@ export interface PropsAxios {
   data?: any
   headers?: any
 }
+
+export interface Taps {
+  componentName: 'Home' | 'Incomes' | 'Expenditures' | 'Customers'
+  name: string
+  current: boolean
+}
