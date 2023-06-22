@@ -44,10 +44,10 @@ export const useAxios = (): any => {
   )
 
   const axiosRequest = async ({ method, endpoint, data = null }: PropsAxios): Promise<any> => {
-    const bastUrl: string = import.meta.env.VITE_URL_API
+    const baseUrl: string = import.meta.env.VITE_URL_API
     return await axiosInstance.request({
       method,
-      url: `${bastUrl}${endpoint}`,
+      url: `${baseUrl}${endpoint}`,
       data
     })
   }
