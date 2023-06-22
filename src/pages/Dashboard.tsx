@@ -1,22 +1,44 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../context/user'
 import { useNavigate } from 'react-router-dom'
-import { useAxios } from '../hooks/useAxios'
-export const Dashboard: React.FC = () => {
-  const { token } = useContext(UserContext)
-  const { axiosRequest } = useAxios()
-  const navigate = useNavigate()
+import { HeaderDashboard } from '../components/HeaderDashboard'
+import { useExpenditures } from '../hooks/useExpenditures'
+import { useIncomes } from '../hooks/useIncomes'
+import { HomeDashboard } from './HomeDashboard'
+import { Customers } from './Customers'
+import { Expenditures } from './Expenditures'
+import { Incomes } from './Incomes'
 
+export const Dashboard: React.FC = () => {
+  const [tap, setTap] = useState<string>('Home')
+
+  const { token } = useContext(UserContext)
+  const navigate = useNavigate()
+  const { getExpenditures } = useExpenditures()
+  const { getIncomes } = useIncomes()
   useEffect(() => {
     if (token == null || token === undefined) {
       navigate('/login')
     }
+    getExpenditures().then((response) => {
+      setData(response.data.data)
+    })
+    getIncomes().then((response) => {
+      console.log(response.data.data)
+    })
   }, [token])
 
-  axiosRequest({ method: 'get', endpoint: 'expenditures' }).then((response) => {
-    console.log(response)
-  })
+  const componentsTap = {
+    Home: <HomeDashboard />,
+    Customers: <Customers />,
+    Expenditures: <Expenditures/>,
+    Incomes: <Incomes/>
+  }
+
   return (
-    <h1>Dashboard</h1>
+    <>
+      <HeaderDashboard changeTap={setTap} />
+      {componentsTap[tap]}
+    </>
   )
 }
