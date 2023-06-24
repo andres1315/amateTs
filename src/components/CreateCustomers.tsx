@@ -7,7 +7,11 @@ interface Inputs {
   phone: number
 }
 
-export const CreateCustomers: React.FC = () => {
+interface Props {
+  refreshCustomer: React.Dispatch<React.SetStateAction<[]>>
+}
+
+export const CreateCustomers: React.FC<Props> = ({ refreshCustomer }: Props) => {
   const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>()
   const { createCustomer } = useCustomers()
   const onSubmit = (data: Inputs): void => {
@@ -16,6 +20,7 @@ export const CreateCustomers: React.FC = () => {
         const { status } = response
         if (status === 201) {
           reset()
+          refreshCustomer([])
           void Swal.fire({
             icon: 'success',
             title: 'Cliente creado',
@@ -71,8 +76,8 @@ export const CreateCustomers: React.FC = () => {
             {(errors.phone != null) && <span className='text-red-500'>Este campo es requerido</span>}
           </InputIcon>
 
-          <button className='button bg-rose-500/70 px-5 rounded-lg  my-3 hover:bg-rose-500' type='submit'>
-            <span className='text-white'>Crear</span>
+          <button className='button bg-rose-400/70 px-5 rounded-lg  py-1 hover:bg-rose-500/70' type='submit'>
+            <span className='text-white '>Crear</span>
           </button>
 
           </div>
