@@ -67,7 +67,7 @@ export const HeaderDashboard: React.FC<Props> = ({ changeTap }: Props) => {
                         key={item.name}
                         onClick={() => { handleChangeTap(item.componentName) }}
                         className={classNames(
-                          item.current ? 'bg-rose-500/70 text-white' : 'text-gray-600  hover:bg-rose-500/40 hover:text-white',
+                          item.current ? 'bg-rose-500/70 text-white' : 'text-gray-600 outline-rose-500   hover:bg-rose-500/40 hover:text-white',
                           'rounded-md px-3 py-2 text-base font-medium'
                         )}
                         aria-current={item.current ? 'page' : undefined}
