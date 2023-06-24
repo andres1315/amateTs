@@ -5,7 +5,6 @@ import { type PropsAxios } from '../types'
 
 export const useAxios = (): any => {
   const { token, deleteUserData } = useContext(UserContext)
-  console.log({ token })
   const axiosInstance = axios.create({
     headers: {
       // Puedes agregar encabezados comunes aquí
@@ -33,12 +32,13 @@ export const useAxios = (): any => {
         deleteUserData()
       } else if (error.response) {
         console.log('Error de respuesta:', error.response)
+        return await Promise.reject(error.response)
       } else if (error.request) {
         console.log('No se recibió respuesta del servidor:', error.request)
+        return await Promise.reject(error.request)
       } else {
         console.log('Error al configurar o enviar la solicitud:', error.message)
       }
-
       return await Promise.reject(error)
     }
   )
