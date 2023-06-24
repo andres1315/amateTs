@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { UserContext } from '../context/user'
 import { useNavigate } from 'react-router-dom'
-import { HeaderDashboard } from '../components/HeaderDashboard'
+import { HeaderDashboard } from '../components/NavbarDashboard'
 import { useExpenditures } from '../hooks/useExpenditures'
 import { useIncomes } from '../hooks/useIncomes'
 import { HomeDashboard } from './HomeDashboard'
