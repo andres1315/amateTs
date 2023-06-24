@@ -25,3 +25,12 @@ export interface Taps {
   name: string
   current: boolean
 }
+
+export interface CustomerList {
+  id: number
+  name: string
+  number: int
+  state: int
+  createdAt: string
+  updatedAt: string
+}
