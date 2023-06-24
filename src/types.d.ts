@@ -29,8 +29,22 @@ export interface Taps {
 export interface CustomerList {
   id: number
   name: string
-  number: int
-  state: int
+  number: number
+  state: number
   createdAt: string
   updatedAt: string
+}
+
+export interface ExpendituresList {
+  id: number
+  description: string
+  state: number
+  supplier: number
+  supplierDetail: {
+    name: string
+  }
+  createdAt: string
+  updatedAt: string
+  value: number
+  userCreated: number
 }
