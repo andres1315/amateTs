@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { FormLogin } from '../components/login/FormLogin'
+import { FormLogin } from '../components/FormLogin'
 import { UserContext } from '../context/user'
 import { useContext, useEffect } from 'react'
 export const Login: React.FC = () => {
