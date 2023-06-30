@@ -6,10 +6,10 @@ import { type PropsAxios } from '../types'
 export const useAxios = (): any => {
   const { token, deleteUserData } = useContext(UserContext)
   const axiosInstance = axios.create({
-    headers: {
+    /* headers: {
       // Puedes agregar encabezados comunes aquí
       'Content-Type': 'application/json'
-    }
+    } */
   })
   // axios intereceptor
   axiosInstance.interceptors.request.use((config) => {

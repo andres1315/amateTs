@@ -5,6 +5,14 @@ interface PropsCustomerCreate {
   phone: number
 }
 
+interface PropsUpdateCustomer {
+  data: {
+    name: string
+    number: number
+  }
+  id: number
+}
+
 export const useCustomers = (): any => {
   const { axiosRequest } = useAxios()
 
@@ -16,8 +24,13 @@ export const useCustomers = (): any => {
     return axiosRequest({ method: 'POST', endpoint: 'customers', data: { ...data, number: data.phone } })
   }
 
+  const updateCustomer = async ({ data, id }: PropsUpdateCustomer): Promise<any> => {
+    return axiosRequest({ method: 'PATCH', endpoint: `customers/${id}`, data })
+  }
+
   return {
     getCustomers,
-    createCustomer
+    createCustomer,
+    updateCustomer
   }
 }
