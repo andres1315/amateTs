@@ -18,7 +18,7 @@ export const FormLogin: React.FC = () => {
       .then((response) => {
         const { data, status } = response
         if (status === 200) {
-          const { token, name } = data
+          const { token, name } = data.data
           localStorage.setItem('user', JSON.stringify(data))
           localStorage.setItem('token', token)
           dispatch(login({ token, user: name, isLoged: true }))
