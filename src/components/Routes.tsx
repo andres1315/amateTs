@@ -4,11 +4,12 @@ import { Home } from '../pages/Home'
 import { Login } from '../pages/Login'
 import { Dashboard } from '../pages/Dashboard'
 import { NotFound } from '../pages/NotFound'
-import { UserProvider } from '../context/user'
+import { store } from '../store'
+import { Provider } from 'react-redux'
 
 export const RoutesList: React.FC = () => {
   return (
-    <UserProvider>
+    <Provider store={store}>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home/>} />
@@ -17,6 +18,6 @@ export const RoutesList: React.FC = () => {
           <Route path='*' element={<NotFound/>} />
         </Routes>
       </BrowserRouter>
-    </UserProvider>
+    </Provider>
   )
 }
