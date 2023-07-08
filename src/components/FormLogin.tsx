@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import Swal from 'sweetalert2'
-import { useContext } from 'react'
-import { UserContext } from '../context/user'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { login } from '../reducers/user'
 interface Inputs {
   username: string
   password: string
@@ -12,14 +12,16 @@ interface Inputs {
 export const FormLogin: React.FC = () => {
   const navigate = useNavigate()
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
-  const { setUserData } = useContext(UserContext)
+  const dispatch = useDispatch()
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     axios.post(`${import.meta.env.VITE_URL_API}auth/login`, data)
       .then((response) => {
         const { data, status } = response
         if (status === 200) {
-          setUserData(data.data)
-          console.log(setUserData)
+          const { token, name } = data
+          localStorage.setItem('user', JSON.stringify(data))
+          localStorage.setItem('token', token)
+          dispatch(login({ token, user: name, isLoged: true }))
           void Swal.fire({
             icon: 'success',
             title: 'Bienvenido',
