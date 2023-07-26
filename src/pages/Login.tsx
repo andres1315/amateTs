@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 import { FormLogin } from '../components/FormLogin'
-import { UserContext } from '../context/user'
-import { useContext, useEffect } from 'react'
+import { useAppSelector } from '../hooks/store'
+
 export const Login: React.FC = () => {
-  const { token } = useContext(UserContext)
+  const isLoged = useAppSelector((state) => state.user.isLoged)
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (token != null && token !== undefined) {
-      console.log(token)
+    if (isLoged) {
       navigate('/dashboard')
     }
   }, [])

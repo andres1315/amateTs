@@ -1,16 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
+const userLocalStorage = JSON.parse(localStorage.getItem('user'))
+const tokenLocalStorage = localStorage.getItem('token')
 export interface UserState {
-  user: any
+  user: any | null
   token: string | null
   isLoged: boolean
 }
 
 export const initialState: UserState = {
-  user: null,
-  token: null,
-  isLoged: false
+  user: userLocalStorage,
+  token: tokenLocalStorage,
+  isLoged: tokenLocalStorage != null
 }
 
 export const userSlice = createSlice({
