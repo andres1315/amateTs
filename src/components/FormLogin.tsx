@@ -1,9 +1,8 @@
-import axios from 'axios'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
-import { login } from '../reducers/user'
+import { useUserActions } from '../hooks/useUserActions'
+import { authUser } from '../services/login'
 interface Inputs {
   username: string
   password: string
@@ -12,16 +11,15 @@ interface Inputs {
 export const FormLogin: React.FC = () => {
   const navigate = useNavigate()
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
-  const dispatch = useDispatch()
+  const { saveLogin } = useUserActions()
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    axios.post(`${import.meta.env.VITE_URL_API}auth/login`, data)
-      .then((response) => {
-        const { data, status } = response
+    authUser(data)
+      .then(({ data, status }) => {
         if (status === 200) {
           const { token, name } = data.data
-          localStorage.setItem('user', JSON.stringify(data))
-          localStorage.setItem('token', token)
-          dispatch(login({ token, user: name, isLoged: true }))
+          /*           localStorage.setItem('user', JSON.stringify(data.data))
+          localStorage.setItem('token', token) */
+          saveLogin(token, name)
           void Swal.fire({
             icon: 'success',
             title: 'Bienvenido',
@@ -56,7 +54,7 @@ export const FormLogin: React.FC = () => {
                 type="text"
                 autoComplete="Usuario"
                 required
-                className="block w-full pl-2 rounded-md border-0 py-1.5 text-rose-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rose-300 focus:outline-rose-300 sm:text-sm sm:leading-6"
+                className="block w-full pl-2 rounded-md border-0 py-1.5 text-rose-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rose-300 sm:text-sm sm:leading-6"
                 {...register('username', { required: true })}
               />
               {(errors.username != null) && <span className="text-red-500">Este campo es requerido</span>}
@@ -72,7 +70,7 @@ export const FormLogin: React.FC = () => {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="block w-full pl-2 rounded-md border-0 py-1.5 text-rose-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rose-300 focus:outline-rose-300 sm:text-sm sm:leading-6"
+                className="block w-full pl-2 rounded-md border-0 py-1.5 text-rose-600 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rose-300  sm:text-sm sm:leading-6"
               />
               {(errors.password != null) && <span className="text-red-500">Este campo es requerido</span>}
             </div>
