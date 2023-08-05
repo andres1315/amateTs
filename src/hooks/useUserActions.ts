@@ -1,4 +1,4 @@
-import { login } from '../reducers/user'
+import { login, logout } from '../reducers/user'
 import { useAppDispatch } from './store'
 
 export const useUserActions = () => {
@@ -6,5 +6,8 @@ export const useUserActions = () => {
   const saveLogin = (token: string, name: string): void => {
     dispatch(login({ token, user: name, isLoged: true }))
   }
-  return { saveLogin }
+  const logoutUser = (): void => {
+    dispatch(logout())
+  }
+  return { saveLogin, logoutUser }
 }

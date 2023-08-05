@@ -1,10 +1,11 @@
 import axios from 'axios'
-import { useContext } from 'react'
-import { UserContext } from '../context/user'
+import { useUserActions } from './useUserActions'
 import { type PropsAxios } from '../types'
-
+import { useAppSelector } from './store'
 export const useAxios = (): any => {
-  const { token, deleteUserData } = useContext(UserContext)
+/*   const { deleteUserData } = useContext(UserContext) */
+  const token = useAppSelector((state) => state.user.token)
+  const { logoutUser } = useUserActions()
   const axiosInstance = axios.create({
     /* headers: {
       // Puedes agregar encabezados comunes aquí
@@ -29,7 +30,7 @@ export const useAxios = (): any => {
     },
     async (error) => {
       if (error.response.status === 401) {
-        deleteUserData()
+        logoutUser()
       } else if (error.response) {
         console.log('Error de respuesta:', error.response)
         return await Promise.reject(error.response)

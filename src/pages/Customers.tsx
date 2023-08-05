@@ -49,7 +49,7 @@ export const Customers: React.FC = () => {
   }
   return (
     <div className="flex pt-2">
-      <div className="mx-4 pr-4  border-rose-300/30  border-r flex flex-col">
+      <div className="px-2  border-rose-300/30  border-r flex flex-col w-1/5">
         <CreateCustomers refreshCustomer={setCustomer}/>
         <button
           type="button"

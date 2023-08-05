@@ -1,33 +1,18 @@
-import { Fragment } from 'react'
+import { Fragment, useContext } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import { type Taps } from '../types'
+import { useUserActions } from '../hooks/useUserActions'
 
-const navigation: Taps[] = [
-  { name: 'Dashboard', current: true, componentName: 'Home' },
-  { name: 'Clientes', current: false, componentName: 'Customers' },
-  { name: 'Egresos', current: false, componentName: 'Expenditures' },
-  { name: 'Ventas', current: false, componentName: 'Incomes' }
-]
+import { TapDashboardContext } from '../context/tapDashboard'
 
 function classNames (...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-interface Props {
-  changeTap: (tap: string) => void
-}
-export const HeaderDashboard: React.FC<Props> = ({ changeTap }: Props) => {
-  const handleChangeTap = (componentName: string): void => {
-    navigation.forEach((item) => {
-      if (item.componentName === componentName) {
-        item.current = true
-      } else {
-        item.current = false
-      }
-      changeTap(componentName)
-    })
-  }
+export const NavbarDashboard: React.FC = () => {
+  const { taps: navigation, changeTap } = useContext(TapDashboardContext)
+  const { logoutUser } = useUserActions()
+
   return (
     <Disclosure as="nav" className="bg-rose-100 md:bg-rose-100/90">
       {({ open }) => (
@@ -65,7 +50,7 @@ export const HeaderDashboard: React.FC<Props> = ({ changeTap }: Props) => {
                     {navigation.map((item) => (
                       <button
                         key={item.name}
-                        onClick={() => { handleChangeTap(item.componentName) }}
+                        onClick={() => { changeTap(item.componentName) }}
                         className={classNames(
                           item.current ? 'bg-rose-500/70 text-white' : 'text-gray-600 outline-rose-500   hover:bg-rose-500/40 hover:text-white',
                           'rounded-md px-3 py-2 text-base font-medium'
@@ -123,12 +108,14 @@ export const HeaderDashboard: React.FC<Props> = ({ changeTap }: Props) => {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                          <button
+                            onClick={() => {
+                              logoutUser()
+                            }}
+                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700 w-full text-left')}
                           >
-                            Sign out
-                          </a>
+                            Salir
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>

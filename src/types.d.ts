@@ -48,3 +48,9 @@ export interface ExpendituresList {
   value: number
   userCreated: number
 }
+
+export interface TapContextType {
+  tap: string
+  changeTap: (newTap: string) => void
+  taps: Taps[]
+};
