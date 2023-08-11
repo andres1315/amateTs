@@ -7,7 +7,12 @@ export const useIncomes = (): any => {
     return axiosRequest({ method: 'GET', endpoint: 'incomes' })
   }
 
+  const createIncomes = async (data: any): Promise<any> => {
+    return axiosRequest({ method: 'POST', endpoint: 'incomes', data })
+  }
+
   return {
-    getIncomes
+    getIncomes,
+    createIncomes
   }
 }
