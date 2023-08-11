@@ -28,9 +28,14 @@ export const useCustomers = (): any => {
     return axiosRequest({ method: 'PATCH', endpoint: `customers/${id}`, data })
   }
 
+  const filterCustomers = async (search: string): Promise<any> => {
+    return axiosRequest({ method: 'GET', endpoint: `customers/search?name=${search}` })
+  }
+
   return {
     getCustomers,
     createCustomer,
-    updateCustomer
+    updateCustomer,
+    filterCustomers
   }
 }

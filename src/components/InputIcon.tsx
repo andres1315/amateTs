@@ -20,7 +20,7 @@ export const InputIcon: React.FC<InputIconProps> = ({ children, label, name, ico
   const IconComponent = iconInput[icon]
   return (
     <div>
-      <label htmlFor={name} className="block text-sm font-medium leading-6 text-gray-900">
+      <label htmlFor={name} className="block  font-medium  text-gray-900">
         {label}
       </label>
       <div className="relative mt-1 rounded-md shadow-sm">

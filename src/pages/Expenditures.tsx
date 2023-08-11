@@ -10,6 +10,7 @@ export const Expenditures: React.FC = () => {
     if (expenditures.length === 0) {
       getExpenditures().then((response: { data: { data: any[] }, status: number }) => {
         const { data } = response.data
+        if (data.length === 0) return
         setExpenditures(data)
       })
     }
