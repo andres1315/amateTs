@@ -1,53 +1,120 @@
 import { useForm } from 'react-hook-form'
-import { useIncomes } from '../hooks/useIncomes'
+import { Combobox } from '@headlessui/react'
+import debounce from 'just-debounce-it'
+import { useCallback, useState } from 'react'
+
 import { InputIcon } from './InputIcon'
-import { useState } from 'react'
-import Swal from 'sweetalert2'
+import { useIncomes } from '../hooks/useIncomes'
 import { useCustomers } from '../hooks/useCustomers'
+import Swal from 'sweetalert2'
+
 interface Inputs {
-  customer: number
+  customer: string
   value: number
   description: string
 }
+
+interface Customer {
+  id: number
+  name: string
+}
 export function CreateIncomes (): JSX.Element {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>()
-  const { newIncome } = useIncomes()
+  const { register, handleSubmit, formState: { errors }, reset, control } = useForm<Inputs>()
+  const { createIncomes } = useIncomes()
   const { filterCustomers } = useCustomers()
-  const [customerFinded, setCustomerFinded] = useState<string>('')
-  function handleSearchCustomer (): any {
-    if (customerFinded === '') return Swal.fire('Error', 'Debe ingresar un nombre del cliente', 'error')
-    filterCustomers(customerFinded)
-      .then((res: any) => {
-        const { data, status } = res
-        if (status === 200) {
-          console.log(data)
+  const [resultsCustomers, setResultsCustomers] = useState([] as Customer[])
+  const [selectedCustomer, setSelectedCustomer] = useState({ id: '', name: '' })
+  const debounceHandleChange = useCallback(
+    debounce(async (event: any) => {
+      const customerFind = event.target.value
+      if (customerFind.length < 2) return
+      filterCustomers(event.target.value)
+        .then((response: any) => {
+          const data: Customer = response.data.data
+          setResultsCustomers(data)
+        })
+        .catch(async (error: any) => {
+          console.log(error)
+          const message = error?.data?.message || 'Error'
+          return await Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: message,
+            timer: 2000
+          })
+        })
+    }, 300)
+    , [])
+  const handleValueForm = (data: any): any => {
+    const allData = { ...data, customer: selectedCustomer.id }
+    createIncomes(allData)
+      .then(async (response: any) => {
+        const { data, status } = response
+        if (status === 201) {
+          await Swal.fire({
+            icon: 'success',
+            title: 'Creado',
+            text: 'Ingreso creado correctamente',
+            timer: 2000
+          })
+          reset()
         }
       })
-      .catch((err: any) => {
-        console.log(err)
-      })
-      .finally(() => {
-
+      .catch(async (error: any) => {
+        console.log(error)
+        const message = error?.data?.message || 'Error'
+        return await Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: message,
+          timer: 2000
+        })
       })
   }
-
   return (
-    <form onSubmit={handleSubmit(newIncome)}>
-      <div className="flex flex-col  justify-center gap-2 w-full">
-        <InputIcon label="Cliente" name="supplier" icon="user">
-          <div className="flex">
-            <input
-              type="text"
-              id="searchCustomer"
-              className="block w-full rounded-md border-0 py-1.5 pl-10 text-rose-500/50 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rose-600/30 sm:text-sm sm:leading-6"
-              value={customerFinded}
-              onChange={({ target }) => { setCustomerFinded(target.value) }}
-              placeholder="Patricia Garcia"
-            />
-            <button type="button" className='bg-rose-400/60 text-white px-2 rounded-md hover:text-rose-400/60 hover:bg-white hover:shadow-sm border transition ease-in-out duration-300' onClick={handleSearchCustomer}>Buscar</button>
-          </div>
-        </InputIcon>
-        <InputIcon label="Descripcion" name="description" icon="description">
+    <form onSubmit={handleSubmit(handleValueForm)}>
+      <div className="flex flex-col  justify-center gap-2 w-full ">
+      <Combobox
+        as='div'
+        value={selectedCustomer}
+        onChange={setSelectedCustomer}
+      >
+        <Combobox.Input
+        autoFocus
+        placeholder='Busca aqui el cliente'
+        type='search'
+        autoComplete='false'
+        {
+          ...register('customer', {
+            required: true
+          })
+        }
+        className='block w-full rounded-md border-0 py-1.5 pl-10 text-rose-500/50 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rose-600/30 sm:text-sm sm:leading-6'
+        displayValue={(element: Customer) => element?.name}
+        onChange={debounceHandleChange}
+        />
+        {
+          resultsCustomers.length > 0 && (
+            <Combobox.Options
+            className=' z-10 w-full overflow-hidden bg-white border border-gray-300 rounded-t-none shadow-lg rounded-lg '>
+              {resultsCustomers.map((customer: Customer) => {
+                const { id, name } = customer
+                return (
+                  <Combobox.Option key={id} value={{ id, name }}>
+                   {({ active, selected }) => (
+                      <span className={`block p-4 hover:bg-gray-100 ${active ? 'bg-gray-100' : 'bg-white'}`}>
+                        {selected && <span className='sr-only'>Seleccionado</span>}
+                        <strong>{name}</strong>
+                      </span>
+                   )}
+                  </Combobox.Option>
+                )
+              })}
+            </Combobox.Options>
+          )
+        }
+      </Combobox>
+          <InputIcon label="Descripcion" name="description" icon="description">
           <input
             type="text"
             id="description"
