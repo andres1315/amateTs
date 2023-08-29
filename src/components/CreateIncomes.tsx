@@ -28,7 +28,7 @@ export function CreateIncomes ({ updateIncomes }: Props): JSX.Element {
   const { filterCustomers } = useCustomers()
   const [resultsCustomers, setResultsCustomers] = useState([] as Customer[])
   const [selectedCustomer, setSelectedCustomer] = useState({ id: '', name: '' })
-  
+
   const debounceHandleChange = useCallback(
     debounce(async (event: any) => {
       const customerFind = event.target.value
@@ -81,6 +81,9 @@ export function CreateIncomes ({ updateIncomes }: Props): JSX.Element {
   return (
     <form onSubmit={handleSubmit(handleValueForm)}>
       <div className="flex flex-col  justify-center gap-2 w-full ">
+      <label className="block  font-medium  text-gray-900">
+        Cliente
+      </label>
       <Combobox
         as='div'
         value={selectedCustomer}

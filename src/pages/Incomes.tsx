@@ -14,23 +14,23 @@ export const Incomes: React.FC = () => {
           }
         })
     }
-  }, [incomes])
+  }, [])
   return (
     <div className="grid grid-cols-12 gap-2">
-      <div className="col-span-12 lg:col-span-2 mx-2 mt-2">
+      <div className="col-span-12 lg:col-span-2 px-4 mt-2  border-rose-300/30  border-r">
         <CreateIncomes updateIncomes={setIncomes} />
 
       </div>
       <div className="col-span-12 lg:col-span-10">
-        <div className="bg-white shadow-md rounded my-6">
+        <div className=" w-full overflow-auto h-[calc(100vh-5rem)]">
           <table className="min-w-max w-full table-auto">
             <thead>
-              <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                <th className="py-3 px-6 text-center"> </th>
-                <th className="py-3 px-6 text-left">Cliente</th>
-                <th className="py-3 px-6 text-left">Descripcion</th>
-                <th className="py-3 px-6 text-center">Monto</th>
-                <th className="py-3 px-6 text-center">Fecha</th>
+              <tr >
+                <th> </th>
+                <th>Cliente</th>
+                <th>Descripcion</th>
+                <th>Monto</th>
+                <th>Fecha</th>
               </tr>
             </thead>
             <tbody className="text-gray-600 text-sm font-light">
