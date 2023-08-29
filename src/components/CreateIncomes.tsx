@@ -1,15 +1,14 @@
+import { useCallback, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Combobox } from '@headlessui/react'
 import debounce from 'just-debounce-it'
-import { useCallback, useState } from 'react'
-
 import { InputIcon } from './InputIcon'
 import { useIncomes } from '../hooks/useIncomes'
 import { useCustomers } from '../hooks/useCustomers'
 import Swal from 'sweetalert2'
 
 interface Inputs {
-  customer: string
+  customer: string | number
   value: number
   description: string
 }
@@ -18,12 +17,18 @@ interface Customer {
   id: number
   name: string
 }
-export function CreateIncomes (): JSX.Element {
-  const { register, handleSubmit, formState: { errors }, reset, control } = useForm<Inputs>()
+
+interface Props {
+  updateIncomes: React.Dispatch<React.SetStateAction<never[]>>
+}
+
+export function CreateIncomes ({ updateIncomes }: Props): JSX.Element {
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
   const { createIncomes } = useIncomes()
   const { filterCustomers } = useCustomers()
   const [resultsCustomers, setResultsCustomers] = useState([] as Customer[])
   const [selectedCustomer, setSelectedCustomer] = useState({ id: '', name: '' })
+  
   const debounceHandleChange = useCallback(
     debounce(async (event: any) => {
       const customerFind = event.target.value
@@ -45,19 +50,21 @@ export function CreateIncomes (): JSX.Element {
         })
     }, 300)
     , [])
-  const handleValueForm = (data: any): any => {
+  const handleValueForm = (data: Inputs, e: any): any => {
     const allData = { ...data, customer: selectedCustomer.id }
+    console.log(allData)
     createIncomes(allData)
       .then(async (response: any) => {
-        const { data, status } = response
+        const { status } = response
         if (status === 201) {
-          await Swal.fire({
+          updateIncomes([])
+          e.target.reset()
+          void Swal.fire({
             icon: 'success',
             title: 'Creado',
             text: 'Ingreso creado correctamente',
             timer: 2000
           })
-          reset()
         }
       })
       .catch(async (error: any) => {
@@ -114,6 +121,7 @@ export function CreateIncomes (): JSX.Element {
           )
         }
       </Combobox>
+
           <InputIcon label="Descripcion" name="description" icon="description">
           <input
             type="text"
