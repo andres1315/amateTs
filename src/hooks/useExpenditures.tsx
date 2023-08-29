@@ -7,7 +7,12 @@ export const useExpenditures = (): any => {
     return axiosRequest({ method: 'GET', endpoint: 'expenditures' })
   }
 
+  const createExpenditures = async (data: any): Promise<any> => {
+    return axiosRequest({ method: 'POST', endpoint: 'expenditures', data })
+  }
+
   return {
-    getExpenditures
+    getExpenditures,
+    createExpenditures
   }
 }

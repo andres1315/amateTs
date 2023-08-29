@@ -5,20 +5,21 @@ import { type ExpendituresList } from '../types'
 
 export const Expenditures: React.FC = () => {
   const { getExpenditures } = useExpenditures()
-  const [expenditures, setExpenditures] = useState<any[]>([])
+  const [expenditures, setExpenditures] = useState([])
   useEffect(() => {
     if (expenditures.length === 0) {
       getExpenditures().then((response: { data: { data: any[] }, status: number }) => {
-        const { data } = response.data
-        if (data.length === 0) return
-        setExpenditures(data)
+        const { data, status } = response
+        if (status === 200 && data.data.length > 0) {
+          setExpenditures(data.data)
+        }
       })
     }
-  }, [])
+  }, [expenditures])
   return (
     <div className='grid grid-cols-12 gap-2"'>
       <div className='col-span-12 lg:col-span-2 px-4 mt-2  border-rose-300/30  border-r'>
-        <CreateExpenditures/>
+        <CreateExpenditures updateExpenditures={setExpenditures}/>
       </div>
       <div className='col-span-12 lg:col-span-10'>
         <div className='w-full overflow-auto h-[calc(100vh-5rem)] '>

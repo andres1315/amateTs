@@ -81,51 +81,50 @@ export function CreateIncomes ({ updateIncomes }: Props): JSX.Element {
   return (
     <form onSubmit={handleSubmit(handleValueForm)}>
       <div className="flex flex-col  justify-center gap-2 w-full ">
-      <label className="block  font-medium  text-gray-900">
-        Cliente
-      </label>
-      <Combobox
-        as='div'
-        value={selectedCustomer}
-        onChange={setSelectedCustomer}
-      >
-        <Combobox.Input
-        autoFocus
-        placeholder='Busca aqui el cliente'
-        type='search'
-        autoComplete='false'
-        {
-          ...register('customer', {
-            required: true
-          })
-        }
-        className='block w-full rounded-md border-0 py-1.5 pl-10 text-rose-500/50 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rose-600/30 sm:text-sm sm:leading-6'
-        displayValue={(element: Customer) => element?.name}
-        onChange={debounceHandleChange}
-        />
-        {
-          resultsCustomers.length > 0 && (
-            <Combobox.Options
-            className=' z-10 w-full overflow-hidden bg-white border border-gray-300 rounded-t-none shadow-lg rounded-lg '>
-              {resultsCustomers.map((customer: Customer) => {
-                const { id, name } = customer
-                return (
-                  <Combobox.Option key={id} value={{ id, name }}>
-                   {({ active, selected }) => (
-                      <span className={`block p-4 hover:bg-gray-100 ${active ? 'bg-gray-100' : 'bg-white'}`}>
-                        {selected && <span className='sr-only'>Seleccionado</span>}
-                        <strong>{name}</strong>
-                      </span>
-                   )}
-                  </Combobox.Option>
-                )
-              })}
-            </Combobox.Options>
-          )
-        }
-      </Combobox>
-
-          <InputIcon label="Descripcion" name="description" icon="description">
+        <label className="block  font-medium  text-gray-900">
+          Cliente
+        </label>
+        <Combobox
+          as='div'
+          value={selectedCustomer}
+          onChange={setSelectedCustomer}
+        >
+          <Combobox.Input
+          autoFocus
+          placeholder='Busca aqui el cliente'
+          type='search'
+          autoComplete='false'
+          {
+            ...register('customer', {
+              required: true
+            })
+          }
+          className='block w-full rounded-md border-0 py-1.5 pl-10 text-rose-500/50 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-rose-600/30 sm:text-sm sm:leading-6'
+          displayValue={(element: Customer) => element?.name}
+          onChange={debounceHandleChange}
+          />
+          {
+            resultsCustomers.length > 0 && (
+              <Combobox.Options
+              className=' z-10 w-full overflow-hidden bg-white border border-gray-300 rounded-t-none shadow-lg rounded-lg '>
+                {resultsCustomers.map((customer: Customer) => {
+                  const { id, name } = customer
+                  return (
+                    <Combobox.Option key={id} value={{ id, name }}>
+                    {({ active, selected }) => (
+                        <span className={`block p-4 hover:bg-gray-100 ${active ? 'bg-gray-100' : 'bg-white'}`}>
+                          {selected && <span className='sr-only'>Seleccionado</span>}
+                          <strong>{name}</strong>
+                        </span>
+                    )}
+                    </Combobox.Option>
+                  )
+                })}
+              </Combobox.Options>
+            )
+          }
+        </Combobox>
+        <InputIcon label="Descripcion" name="description" icon="description">
           <input
             type="text"
             id="description"

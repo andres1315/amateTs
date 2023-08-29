@@ -2,19 +2,19 @@ import { CreateIncomes } from '../components/CreateIncomes'
 import { useState, useEffect } from 'react'
 import { useIncomes } from '../hooks/useIncomes'
 export const Incomes: React.FC = () => {
-  const [incomes, setIncomes] = useState([] as any)
+  const [incomes, setIncomes] = useState([])
   const { getIncomes } = useIncomes()
   useEffect(() => {
     if (incomes.length === 0) {
       getIncomes()
         .then((response: any) => {
           const { data, status } = response
-          if (status === 200) {
+          if (status === 200 && data.data.length > 0) {
             setIncomes(data.data)
           }
         })
     }
-  }, [])
+  }, [incomes])
   return (
     <div className="grid grid-cols-12 gap-2">
       <div className="col-span-12 lg:col-span-2 px-4 mt-2  border-rose-300/30  border-r">
