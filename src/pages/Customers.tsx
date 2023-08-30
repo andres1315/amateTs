@@ -39,7 +39,7 @@ export const Customers: React.FC = () => {
       })
       setOpen(true)
     } else {
-      Swal.fire({
+      void Swal.fire({
         icon: 'warning',
         text: 'Seleccione un cliente',
         showConfirmButton: false,

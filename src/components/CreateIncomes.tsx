@@ -134,8 +134,7 @@ export function CreateIncomes ({ updateIncomes }: Props): JSX.Element {
             {
               ...register('description', {
                 required: true,
-                maxLength: 20,
-                pattern: /^[A-Za-z0-9 ]+$/i
+                maxLength: 20
               })
             }
           />
@@ -152,7 +151,7 @@ export function CreateIncomes ({ updateIncomes }: Props): JSX.Element {
               ...register('value', {
                 required: true,
                 maxLength: 20,
-                pattern: /^[A-Za-z0-9 ]+$/i
+                pattern: /^[0-9 ]+$/i
               })
             }
           />

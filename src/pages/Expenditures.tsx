@@ -30,23 +30,26 @@ export const Expenditures: React.FC = () => {
               <th>Descripcion</th>
               <th>Valor</th>
             </thead>
-            <tbody className='divide-y  divide-gray-100 '>
-              {expenditures.map((expenditure: ExpendituresList) => (
+            <tbody className='divide-y divide-gray-100 '>
+              {expenditures.map((expenditure: ExpendituresList) => {
+                const valueExpenditure = expenditure.value.toLocaleString('es-CO', { currency: 'COP', style: 'currency', minimumFractionDigits: 0 })
+                return (
                 <tr key={expenditure.id} className='text-center hover:bg-rose-200/40'>
                   <td>
-                    {<input
+                    <input
                       id={`${expenditure.id}-description`}
                       aria-describedby={`${expenditure.id}-expenditure`}
                       name="expenditures"
                       type="radio"
                       className="h-4 w-4 border-gray-300 text-rose-400/50 focus:ring-rose-400/50"
-                    />}
+                    />
                   </td>
                   <td>{expenditure.supplierDetail.name}</td>
                   <td>{expenditure.description}</td>
-                  <td>{expenditure.value}</td>
+                  <td><span className='bg-rose-100 text-rose-500 px-3 rounded-full'>{valueExpenditure}</span></td>
                 </tr>
-              ))}
+                )
+              })}
             </tbody>
           </table>
         </div>

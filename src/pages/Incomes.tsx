@@ -25,42 +25,42 @@ export const Incomes: React.FC = () => {
         <div className=" w-full overflow-auto h-[calc(100vh-5rem)]">
           <table className="min-w-max w-full table-auto">
             <thead>
-              <tr >
-                <th> </th>
+              <tr>
+                <th>-</th>
                 <th>Cliente</th>
                 <th>Descripcion</th>
                 <th>Monto</th>
                 <th>Fecha</th>
               </tr>
             </thead>
-            <tbody className="text-gray-600 text-sm font-light">
+            <tbody className="divide-y  divide-gray-100">
               {
                 incomes.map((income: any) => {
+                  const valueInCop = income.value.toLocaleString('es-CO', { currency: 'COP', style: 'currency', minimumFractionDigits: 0 })
                   return (
-                  <tr className="border-b border-gray-200 hover:bg-gray-100" key={income.id}>
-                    <td className="py-3 px-6 text-center">
-                      <label className="inline-flex items-center">
-                        <input type="checkbox" className="form-checkbox h-5 w-5 text-gray-600" />
-                      </label>
+                  <tr className="border-b border-gray-200 text-center hover:bg-rose-200/40" key={income.id}>
+                    <td>
+                      <input
+                        aria-describedby={`${income.id}-income`}
+                        name="expenditures"
+                        type="radio"
+                        className="h-4 w-4 border-gray-300 text-rose-400/50 focus:ring-rose-400/50"
+                      />
                     </td>
-                    <td className="py-3 px-6 text-left whitespace-nowrap">
-                      <div className="flex items-center">
-                        <span className="font-medium">{income.customerDetail.name}</span>
-                      </div>
+                    <td>
+                      <span className="font-medium">{income.customerDetail.name}</span>
                     </td>
-                    <td className="py-3 px-6 text-left">
-                      <div className="flex items-center">
-                        <span>
-                          {income.description.toUpperCase()}
-                        </span>
-                      </div>
-                    </td>
-                    <td className="py-3 px-6 text-center">
-                      <span className="bg-rose-200 text-rose-600 py-1 px-3 rounded-full">
-                        ${income.value}
+                    <td >
+                      <span>
+                        {income.description.toUpperCase()}
                       </span>
                     </td>
-                    <td className="py-3 px-6 text-center">
+                    <td >
+                      <span className="bg-rose-100 text-rose-500  px-3 rounded-full">
+                        {valueInCop}
+                      </span>
+                    </td>
+                    <td>
                       <span>{new Date(income.createdAt).toLocaleDateString('es-CO', {
                         year: 'numeric',
                         month: '2-digit',
