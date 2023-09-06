@@ -49,6 +49,14 @@ export interface ExpendituresList {
   userCreated: number
 }
 
+export interface Stats {
+  name: string
+  stat: number
+  previousStat?: number
+  change?: string
+  changeType?: string
+}
+
 export interface TapContextType {
   tap: string
   changeTap: (newTap: string) => void
