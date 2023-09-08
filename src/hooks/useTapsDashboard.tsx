@@ -5,15 +5,14 @@ export function useTapsDashboard (): any {
   const { tap, changeTap, taps } = useContext(TapDashboardContext)
 
   useEffect(() => {
-    navigation.forEach((item) => {
+    taps?.forEach((item) => {
       if (item.componentName === tap) {
         item.current = true
       } else {
         item.current = false
       }
     })
-    console.log('cambio', navigation)
-  }, [tap])
+  }, [taps])
 
-  return { tap, changeTap, navigation }
+  return { tap, changeTap, taps }
 }

@@ -23,7 +23,7 @@ export const FormUpdateCustomer: React.FC<CustomersProps> = ({ customer, refresh
   const onSubmit = (data: Inputs): void => {
     const { name, number } = data
     if (name == null || number === null) {
-      return Swal.fire({
+      void Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Todos los campos son requeridos'

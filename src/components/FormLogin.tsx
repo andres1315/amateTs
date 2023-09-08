@@ -12,13 +12,11 @@ export const FormLogin: React.FC = () => {
   const navigate = useNavigate()
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
   const { saveLogin } = useUserActions()
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    authUser(data)
+  const onSubmit: SubmitHandler<Inputs> = (dataLogin) => {
+    authUser(dataLogin)
       .then(({ data, status }) => {
         if (status === 200) {
-          const { token, name } = data.data
-          /*           localStorage.setItem('user', JSON.stringify(data.data))
-          localStorage.setItem('token', token) */
+          const { token, name } = data
           saveLogin(token, name)
           void Swal.fire({
             icon: 'success',
@@ -32,7 +30,8 @@ export const FormLogin: React.FC = () => {
         }
       })
       .catch(async (error) => {
-        const message = error.response.data.message ?? 'Se presentó un error al intentar iniciar sesión'
+        console.log(error)
+        const message = error.response?.data?.message ?? 'Se presentó un error al intentar iniciar sesión'
         await Swal.fire(
           'Oops...',
           message,

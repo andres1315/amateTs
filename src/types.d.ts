@@ -58,7 +58,7 @@ export interface Stats {
 }
 
 export interface TapContextType {
-  tap: string
-  changeTap: (newTap: string) => void
-  taps: Taps[]
+  tap?: string
+  changeTap?: (newTap: string) => void
+  taps?: Taps[]
 };

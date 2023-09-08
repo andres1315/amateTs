@@ -4,8 +4,8 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 const userLocalStorage = JSON.parse(localStorage.getItem('user'))
 const tokenLocalStorage = localStorage.getItem('token')
 export interface UserState {
-  user: any | null
-  token: string | null
+  user?: any | null
+  token?: string | null
   isLoged: boolean
 }
 

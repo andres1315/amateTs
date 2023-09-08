@@ -1,7 +1,7 @@
 import { type Middleware, configureStore } from '@reduxjs/toolkit'
 import { userReducer } from './reducers/user'
 
-const persistanceLocalStorageMiddleware: Middleware = (store) => (next) => (action) => {
+const persistanceLocalStorageMiddleware: Middleware = () => (next) => (action) => {
   next(action)
   const { type, payload } = action
   console.log(type)

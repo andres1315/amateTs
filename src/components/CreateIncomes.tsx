@@ -35,7 +35,7 @@ export function CreateIncomes ({ updateIncomes }: Props): JSX.Element {
       if (customerFind.length < 2) return
       filterCustomers(event.target.value)
         .then((response: any) => {
-          const data: Customer = response.data.data
+          const data: Customer[] = response.data.data
           setResultsCustomers(data)
         })
         .catch(async (error: any) => {

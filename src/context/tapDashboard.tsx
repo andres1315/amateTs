@@ -1,7 +1,7 @@
 import { createContext, useState } from 'react'
 import { type Taps, type TapContextType } from '../types'
 
-export const TapDashboardContext = createContext<TapContextType | undefined>(undefined)
+export const TapDashboardContext = createContext<TapContextType>({})
 
 interface Props {
   children: React.ReactNode

@@ -1,11 +1,11 @@
 import { Fragment, useContext } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useUserActions } from '../hooks/useUserActions'
 
 import { TapDashboardContext } from '../context/tapDashboard'
 
-function classNames (...classes) {
+function classNames (...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
@@ -17,7 +17,7 @@ export const NavbarDashboard: React.FC = () => {
     <Disclosure as="nav" className="bg-rose-100 md:bg-rose-100/90">
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+          <div className=" px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button */}
@@ -47,7 +47,7 @@ export const NavbarDashboard: React.FC = () => {
                 </div>
                 <div className="hidden sm:ml-6 sm:block my-auto">
                   <div className="flex space-x-4">
-                    {navigation.map((item) => (
+                    {navigation?.map((item) => (
                       <button
                         key={item.name}
                         onClick={() => { changeTap(item.componentName) }}
@@ -127,7 +127,7 @@ export const NavbarDashboard: React.FC = () => {
 
           <Disclosure.Panel className="sm:hidden">
             <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
+              {navigation?.map((item) => (
                 <Disclosure.Button
                   key={item.name}
                   as="a"

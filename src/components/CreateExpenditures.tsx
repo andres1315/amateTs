@@ -22,11 +22,11 @@ interface Props {
 }
 
 export const CreateExpenditures: React.FC<Props> = ({ updateExpenditures }: Props) => {
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<Inputs>()
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
   const { filterSuppliers } = useSuppliers()
   const { createExpenditures } = useExpenditures()
   const [supplier, setSupplier] = useState([] as Supplier[])
-  const [selectedSupplier, setSelectedSupplier] = useState<Supplier>({ id: null, name: '' })
+  const [selectedSupplier, setSelectedSupplier] = useState<Supplier>()
 
   const debounceHandleChange = useCallback(
     debounce(async (event: any) => {
@@ -34,7 +34,7 @@ export const CreateExpenditures: React.FC<Props> = ({ updateExpenditures }: Prop
       if (customerFind.length < 2) return
       filterSuppliers(event.target.value)
         .then((response: any) => {
-          const data: Supplier = response.data.data
+          const data: Supplier[] = response.data.data
           setSupplier(data)
         })
         .catch(async (error: any) => {
@@ -51,7 +51,7 @@ export const CreateExpenditures: React.FC<Props> = ({ updateExpenditures }: Prop
     , [])
 
   const handleValueForm = (data: Inputs, e: any): any => {
-    const allData = { ...data, supplier: selectedSupplier.id }
+    const allData = { ...data, supplier: selectedSupplier?.id }
     console.log(allData)
     createExpenditures(allData)
       .then(async (response: any) => {
