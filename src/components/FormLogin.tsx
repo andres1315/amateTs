@@ -16,7 +16,7 @@ export const FormLogin: React.FC = () => {
     authUser(dataLogin)
       .then(({ data, status }) => {
         if (status === 200) {
-          const { token, name } = data
+          const { token, name } = data.data
           saveLogin(token, name)
           void Swal.fire({
             icon: 'success',
