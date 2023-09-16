@@ -134,7 +134,7 @@ export function CreateIncomes ({ updateIncomes }: Props): JSX.Element {
             {
               ...register('description', {
                 required: true,
-                maxLength: 20
+                maxLength: 250
               })
             }
           />

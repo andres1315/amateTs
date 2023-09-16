@@ -51,8 +51,7 @@ export const CreateCustomers: React.FC<Props> = ({ refreshCustomer }: Props) => 
               {
                 ...register('name', {
                   required: true,
-                  maxLength: 20,
-                  pattern: /^[A-Za-z0-9 ]+$/i
+                  maxLength: 250
                 })
               }
             />
@@ -67,8 +66,7 @@ export const CreateCustomers: React.FC<Props> = ({ refreshCustomer }: Props) => 
               required
               {
                 ...register('phone', {
-                  required: true,
-                  maxLength: 20
+                  required: true
                 })
 
               }

@@ -135,7 +135,7 @@ export const CreateExpenditures: React.FC<Props> = ({ updateExpenditures }: Prop
             {
               ...register('description', {
                 required: true,
-                maxLength: 20
+                maxLength: 250
               })
             }
           />
