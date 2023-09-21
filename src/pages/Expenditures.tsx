@@ -2,7 +2,20 @@ import { useEffect, useState } from 'react'
 import { useExpenditures } from '../hooks/useExpenditures'
 import { CreateExpenditures } from '../components/CreateExpenditures'
 import { type ExpendituresList } from '../types'
-const monthNames = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+const monthNames = [
+  'Enero',
+  'Febrero',
+  'Marzo',
+  'Abril',
+  'Mayo',
+  'Junio',
+  'Julio',
+  'Agosto',
+  'Septiembre',
+  'Octubre',
+  'Noviembre',
+  'Diciembre'
+]
 const date = new Date()
 export const Expenditures: React.FC = () => {
   const { getExpenditures } = useExpenditures()
@@ -16,7 +29,7 @@ export const Expenditures: React.FC = () => {
     getExpenditures({ year: currentYear, month: monthView + 1 }).then(
       (response: { data: { data: any[] }, status: number }) => {
         const { data, status } = response
-        if (status === 200 && data.data.length > 0) {
+        if (status === 200) {
           setExpenditures(data.data)
         }
       }
@@ -41,8 +54,13 @@ export const Expenditures: React.FC = () => {
         <CreateExpenditures updateExpenditures={setExpenditures} />
       </div>
       <div className="col-span-12 lg:col-span-10">
-        <div className="w-full flex justify-center gap-6 my-2">
-          <button className="button bg-rose-300 text-white h-7 w-7 rounded-md  hover:bg-rose-500 transition easy-in-out duration-300" onClick={() => { handleChangeMonth(-1) } }>
+        <div className="w-full flex justify-center items-center gap-6 mt-1">
+          <button
+            className="button bg-rose-300 text-white h-7 w-7 rounded-md  hover:bg-rose-500 transition easy-in-out duration-300"
+            onClick={() => {
+              handleChangeMonth(-1)
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -57,8 +75,17 @@ export const Expenditures: React.FC = () => {
               />
             </svg>
           </button>
-          <span className='font-semibold text-gray-700'>{monthNames[monthView]}</span>
-          <button className="button bg-rose-300 text-white h-7 w-7 rounded-md  hover:bg-rose-500 transition easy-in-out duration-300" onClick={() => { handleChangeMonth(1) }}>
+
+          <span className="font-semibold text-gray-700">
+            {monthNames[monthView]} - {currentYear}
+          </span>
+
+          <button
+            className="button bg-rose-300 text-white h-7 w-7 rounded-md  hover:bg-rose-500 transition easy-in-out duration-300"
+            onClick={() => {
+              handleChangeMonth(1)
+            }}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
