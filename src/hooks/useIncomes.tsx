@@ -3,8 +3,8 @@ import { useAxios } from './useAxios'
 export const useIncomes = (): any => {
   const { axiosRequest } = useAxios()
 
-  const getIncomes = async (): Promise<any> => {
-    return axiosRequest({ method: 'GET', endpoint: 'incomes' })
+  const getIncomes = async ({ year, month }): Promise<any> => {
+    return axiosRequest({ method: 'GET', endpoint: `incomes/filter/search?year=${year}&month=${month}` })
   }
 
   const createIncomes = async (data: any): Promise<any> => {

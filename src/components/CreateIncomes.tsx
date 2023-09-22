@@ -19,10 +19,10 @@ interface Customer {
 }
 
 interface Props {
-  updateIncomes: React.Dispatch<React.SetStateAction<never[]>>
+  setCurrentYear: React.Dispatch<React.SetStateAction<never[]>>
 }
 
-export function CreateIncomes ({ updateIncomes }: Props): JSX.Element {
+export function CreateIncomes ({ setCurrentYear }: Props): JSX.Element {
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
   const { createIncomes } = useIncomes()
   const { filterCustomers } = useCustomers()
@@ -57,7 +57,8 @@ export function CreateIncomes ({ updateIncomes }: Props): JSX.Element {
       .then(async (response: any) => {
         const { status } = response
         if (status === 201) {
-          updateIncomes([])
+          const date = new Date()
+          setCurrentYear(date.getFullYear())
           e.target.reset()
           void Swal.fire({
             icon: 'success',

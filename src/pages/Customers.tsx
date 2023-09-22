@@ -77,7 +77,7 @@ export const Customers: React.FC = () => {
                     className="h-4 w-4 border-gray-300 text-rose-400/50 focus:ring-rose-400/50"
                   />}
                 </td>
-                <td>{customer.name}</td>
+                <td>{customer.name.toUpperCase()}</td>
                 <td>{customer.number}</td>
               </tr>
             ))}
