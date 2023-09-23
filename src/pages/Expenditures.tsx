@@ -3,18 +3,15 @@ import { useExpenditures } from '../hooks/useExpenditures'
 import { CreateExpenditures } from '../components/CreateExpenditures'
 import { type ExpendituresList } from '../types'
 import { ChangeMonthButtons } from '../components/ChangeMonthButtons'
+import { useChangeMonth } from '../hooks/useChangeMonth'
 
-const date = new Date()
 export const Expenditures: React.FC = () => {
   const { getExpenditures } = useExpenditures()
   const [expenditures, setExpenditures] = useState([])
-  const [currentYear, setCurrentYear] = useState(date.getFullYear())
-  const [monthView, setMonthView] = useState(() => {
-    return date.getMonth()
-  })
+  const { currentYear, currentMonth, handleChangeMonth } = useChangeMonth()
 
   useEffect(() => {
-    getExpenditures({ year: currentYear, month: monthView + 1 }).then(
+    getExpenditures({ year: currentYear, month: currentMonth + 1 }).then(
       (response: { data: { data: any[] }, status: number }) => {
         const { data, status } = response
         if (status === 200) {
@@ -22,19 +19,7 @@ export const Expenditures: React.FC = () => {
         }
       }
     )
-  }, [monthView, currentYear])
-
-  const handleChangeMonth = (value: number) => {
-    if (monthView + value > 11) {
-      setMonthView(0)
-      setCurrentYear(currentYear + 1)
-    } else if (monthView + value < 0) {
-      setMonthView(11)
-      setCurrentYear(currentYear - 1)
-    } else {
-      setMonthView(monthView + value)
-    }
-  }
+  }, [currentMonth, currentYear])
 
   return (
     <div className='grid grid-cols-12 gap-2"'>
@@ -43,7 +28,7 @@ export const Expenditures: React.FC = () => {
       </div>
       <div className="col-span-12 lg:col-span-10">
         <div className="w-full flex justify-center items-center gap-6 mt-1">
-          <ChangeMonthButtons month={monthView} year={currentYear} handleChangeMonth={handleChangeMonth}/>
+          <ChangeMonthButtons month={currentMonth} year={currentYear} handleChangeMonth={handleChangeMonth}/>
         </div>
         <div className="w-full overflow-auto h-[calc(100vh-5rem)] ">
           <table className="min-w-full divide-y mb-10">

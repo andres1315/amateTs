@@ -2,37 +2,23 @@ import { CreateIncomes } from '../components/CreateIncomes'
 import { useState, useEffect } from 'react'
 import { useIncomes } from '../hooks/useIncomes'
 import { ChangeMonthButtons } from '../components/ChangeMonthButtons'
+import { useChangeMonth } from '../hooks/useChangeMonth'
 
-const date = new Date()
 export const Incomes: React.FC = () => {
   const [incomes, setIncomes] = useState([])
   const { getIncomes } = useIncomes()
-  const [currentYear, setCurrentYear] = useState(date.getFullYear())
-  const [monthView, setMonthView] = useState(() => {
-    return date.getMonth()
-  })
+  const { currentYear, currentMonth, handleChangeMonth, setCurrentYear } = useChangeMonth()
+
   useEffect(() => {
-    getIncomes({ year: currentYear, month: monthView + 1 })
+    getIncomes({ year: currentYear, month: currentMonth + 1 })
       .then((response: any) => {
         const { data, status } = response
         if (status === 200) {
           setIncomes(data.data)
         }
       })
-  }, [monthView, currentYear])
+  }, [currentMonth, currentYear])
 
-  const handleChangeMonth = (value: number) => {
-    console.log('entra o no')
-    if (monthView + value > 11) {
-      setMonthView(0)
-      setCurrentYear(currentYear + 1)
-    } else if (monthView + value < 0) {
-      setMonthView(11)
-      setCurrentYear(currentYear - 1)
-    } else {
-      setMonthView(monthView + value)
-    }
-  }
   return (
     <div className="grid grid-cols-12 gap-2">
       <div className="col-span-12 lg:col-span-2 px-4 mt-2  border-rose-300/30  border-r">
@@ -41,7 +27,7 @@ export const Incomes: React.FC = () => {
       </div>
       <div className="col-span-12 lg:col-span-10">
         <div className="w-full flex justify-center items-center gap-6 mt-1">
-          <ChangeMonthButtons month={monthView} year={currentYear} handleChangeMonth={handleChangeMonth}/>
+          <ChangeMonthButtons month={currentMonth} year={currentYear} handleChangeMonth={handleChangeMonth}/>
         </div>
         <div className=" w-full overflow-auto h-[calc(100vh-5rem)]">
           <table className="min-w-max w-full table-auto">
