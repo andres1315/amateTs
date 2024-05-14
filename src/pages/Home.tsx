@@ -1,5 +1,7 @@
+import { BentoGallery } from '../components/BentoGallery'
 import { FirstSectionHome } from '../components/FirstSectionHome'
 import { HeaderHome } from '../components/HeaderHome'
+import { SectionLocale } from '../components/SectionLocale'
 import { TechiniquesSection } from '../components/TechniquesSection'
 import './Home.css'
 export const Home: React.FC = () => {
@@ -17,16 +19,12 @@ export const Home: React.FC = () => {
         </div>
 
         <div className='snap-center'>
-          <FirstSectionHome />
+          <BentoGallery />
+        </div>
+        <div className='snap-center'>
+          <SectionLocale />
         </div>
 
-        <div className='snap-center'>
-          <FirstSectionHome />
-        </div>
-
-        <div className='snap-center'>
-          <FirstSectionHome />
-        </div>
       </main>
 
     </div>

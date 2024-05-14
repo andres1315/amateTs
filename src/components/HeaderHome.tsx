@@ -2,10 +2,10 @@ import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
-  { name: 'Inicio', href: '#mainSection', current: true },
+  { name: 'Inicio', href: '#mainSection', current: false },
   { name: 'Tecnicas', href: '#techniques', current: false },
-  { name: 'Projects', href: '#', current: false },
-  { name: 'Calendar', href: '#', current: false }
+  { name: 'Ubicacion', href: '#locale', current: false },
+  { name: 'Agendar', href: 'https://wa.me/573113830827/?text=Hola.%20Quiero%20agendar%20una%20cita', current: false }
 ]
 
 function classNames (...classes: string[]): string {
@@ -15,7 +15,7 @@ function classNames (...classes: string[]): string {
 export const HeaderHome: React.FC = () => {
   return (
     <header className='fixed top-0 w-full z-40'>
-      <Disclosure as="nav" className="bg-rose-100 md:bg-rose-100/90 ">
+      <Disclosure as="nav" className="backdrop-blur-md bg-rose-300 bg-opacity-20">
         {({ open }) => (
           <>
             <div className="mx-auto  px-2 sm:px-6 lg:px-8">

@@ -37,12 +37,12 @@ export const NavbarDashboard: React.FC = () => {
                   <img
                     className="block h-12 w-auto lg:hidden"
                     src="./logo.png"
-                    alt="Your Company"
+                    alt="Amate"
                   />
                   <img
                     className="hidden h-16 w-auto lg:block"
                     src="./logo.png"
-                    alt="Your Company"
+                    alt="Amate"
                   />
                 </div>
                 <div className="hidden sm:ml-6 sm:block my-auto">

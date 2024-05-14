@@ -23,7 +23,6 @@ export const Incomes: React.FC = () => {
     <div className="grid grid-cols-12 gap-2">
       <div className="col-span-12 lg:col-span-2 px-4 mt-2  border-rose-300/30  border-r">
         <CreateIncomes setCurrentYear={setCurrentYear} />
-
       </div>
       <div className="col-span-12 lg:col-span-10">
         <div className="w-full flex justify-center items-center gap-6 mt-1">
@@ -78,7 +77,6 @@ export const Incomes: React.FC = () => {
                   )
                 })
               }
-
             </tbody>
           </table>
         </div>
