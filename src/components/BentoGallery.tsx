@@ -1,5 +1,5 @@
 
-export const BentoGallery = () => {
+export const BentoGallery = (): JSX.Element => {
   return (
 <section
       id="gallery"
