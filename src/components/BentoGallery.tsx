@@ -1,9 +1,8 @@
-import React from 'react'
 
 export const BentoGallery = () => {
   return (
 <section
-      id="bento"
+      id="gallery"
       className="flex flex-col h-screen w-full relative items-center overflow-hidden justify-center bg-gradient-to-b from-rose-200/30 via-white to-rose-200/30 space-y-10"
     >
       <div className="w-4/5 h-[70%]">

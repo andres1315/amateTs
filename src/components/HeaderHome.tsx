@@ -4,6 +4,7 @@ import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 const navigation = [
   { name: 'Inicio', href: '#mainSection', current: false },
   { name: 'Tecnicas', href: '#techniques', current: false },
+  { name: 'Galeria', href: '#gallery', current: false },
   { name: 'Ubicacion', href: '#locale', current: false },
   { name: 'Agendar', href: 'https://wa.me/573113830827/?text=Hola.%20Quiero%20agendar%20una%20cita', current: false }
 ]
